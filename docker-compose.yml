@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  ProductService:
+   image: ${DOCKER_REGISTRY-}producstmicroservice:v1
+   build:
+    context: ./ProductMicroservice
+    dockerfile: Dockerfile
+   environment:
+    - CONNECTIONSTRINGS__DEFAULTCONNECTION=Data Source=host.docker.internal:1433;Initial Catalog=Product;
+   ports:
+    - "4201:80"
+  UserService:
+   image: ${DOCKER_REGISTRY-}usersmicroservice:v1
+   build:
+    context: ./UserMicroservice
+    dockerfile: Dockerfile
+   environment:
+    - CONNECTIONSTRINGS__DEFAULTCONNECTION=Data Source=host.docker.internal:1433;Initial Catalog=User;
+   ports:
+    - "4202:80"
